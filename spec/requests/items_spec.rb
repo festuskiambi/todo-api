@@ -56,7 +56,7 @@ RSpec.describe'Items Api' do
     describe 'POST/todos/:todo_id/items' do
         let(:valid_attributes) {{name: 'Fes', done: false }}
         context 'when request is valid' do
-            before {post "/todos/#{todo_id}",params: valid_attributes}
+            before {post "/todos/#{todo_id}/items",params: valid_attributes}
             it 'returns http status 201' do
                 expect(response).to have_http_status(201)
             end    
@@ -74,8 +74,9 @@ RSpec.describe'Items Api' do
     
     describe 'PUT /todos/:todo_id/items/:id' do
         let(:valid_attributes) { {name: 'Test'}}
+        before { put "/todos/#{todo_id}/items/#{id}",params:valid_attributes }
+
         context 'when request is valid' do
-            before { put "/todos/#{todo_id}/items/#{id}" }
             it 'returns http status 204' do
                 expect(response).to have_http_status(204)
             end 
@@ -86,7 +87,7 @@ RSpec.describe'Items Api' do
             end        
         end
         context 'when request is invalid' do
-            let(:id) {0}
+            let(:id) { 0 }
             it 'returns http status 404' do 
                 expect(response).to have_http_status(404)
             end
